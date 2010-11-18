@@ -3,10 +3,10 @@
 $: << 'lib'
 
 require 'rubygems'
-require 'hoe'
+#require 'hoe'
 
-Hoe.plugin :isolate
-Hoe.plugin :seattlerb
+#Hoe.plugin :isolate
+#Hoe.plugin :seattlerb
 
 class HashHash < Hash
   def initialize
@@ -14,6 +14,7 @@ class HashHash < Hash
   end
 end
 
+=begin
 Hoe.spec 'minitest_bench' do
   developer 'Ryan Davis', 'ryand-ruby@zenspider.com'
 
@@ -26,7 +27,9 @@ Hoe.spec 'minitest_bench' do
   extra_deps << ["bacon",     "> 0"]
   extra_deps << ["shoulda",   "> 0"]
   extra_deps << ["cucumber",  "> 0"]
+  extra_deps << ["wrong",  "> 0"]
 end
+=end
 
 task :run => [:generate, :bench, :report]
 
@@ -39,7 +42,7 @@ def test_file path
   task :bench    => out
 end
 
-$units      = [10, 100, 1_000, 10_000]
+$units      = [10, 100, 1_000]#, 10_000]
 $types      = %w(positive negative)
 $frameworks = []
 
@@ -197,7 +200,7 @@ def run_test t
   framework, type, size = test_type path
 
   cmd = case framework
-        when "minitestunit", "minitestspec", "testunit2", "shoulda" then
+        when "minitestunit", "minitestspec", "testunit2", "shoulda", "wrong" then
           "ruby -rubygems"
         when "testunit1" then
           "ruby"
